@@ -5,6 +5,15 @@ body {
     color: #404c51;    
 }
 
+a {
+    color: #337ab7;
+    text-decoration: none;
+ }
+  
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
 label{
     font-weight: bold;
     font-size: larger;
@@ -42,4 +51,8 @@ label{
 
 .col-acoes > a {
     margin: 0 5px;
+}
+
+button.ui-button {    
+    margin-right: 8px;
 }
