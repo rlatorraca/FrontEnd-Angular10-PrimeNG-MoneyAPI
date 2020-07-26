@@ -3,12 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule}    from '@angular/forms'
+import { LancamentosModule } from './lancamentos/lancamentos.module';
 
 import { AppComponent } from './app.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
+
+
 
 //Currency Mask
 import {CurrencyMaskModule} from 'ng2-currency-mask'
@@ -23,22 +24,27 @@ import {CalendarModule} from 'primeng/calendar';
 import {TabViewModule} from 'primeng/tabview';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
-import {InputMaskModule} from 'primeng/inputmask';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { MessageComponent } from './message/message.component';
+import { LancamentosGridComponent } from './lancamentos/lancamentos-grid/lancamentos-grid.component';
+import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LancamentosPesquisaComponent,
+    AppComponent,    
     NavbarComponent,
-    PessoasPesquisaComponent,
-    LancamentoCadastroComponent,
-    PessoaCadastroComponent
+    PessoasPesquisaComponent,    
+    PessoaCadastroComponent,
+    MessageComponent,
+    PessoasGridComponent,    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    
+    LancamentosModule,
     
     ButtonModule,
     InputTextModule,
@@ -49,7 +55,7 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
     TabViewModule,
     SelectButtonModule,
     DropdownModule,
-    InputMaskModule,
+    
     CurrencyMaskModule
   ],
   providers: [],
