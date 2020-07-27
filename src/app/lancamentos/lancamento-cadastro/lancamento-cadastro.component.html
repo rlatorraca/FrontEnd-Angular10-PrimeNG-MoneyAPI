@@ -14,7 +14,7 @@
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>Data de Vencimento</label>
           <p-calendar dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false" [locale]="ptbr" name="vencimento" ngModel #vencimento="ngModel" required></p-calendar> 
-          <!--<app-message [controle]="vencimento" erro="required" texto="Informe a data de vencimento"></app-message> -->
+          <app-message [controle]="vencimento" erro="required" texto="Informe a data de vencimento"></app-message> 
         </div>
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>{{ tipo.value ==='RECEITA' ? 'Data de Recebimento' : 'Data de Pagamento'}}</label>
@@ -26,9 +26,9 @@
           <input pInputText type="text" name="descricao"
             ngModel #descricao="ngModel" required minlength="5">
   
-          <!--Componente Criado para Mensagens de ERRRO
+          <!-- Componente Criado para Mensagens de ERRRO -->
           <app-message [controle]="descricao" erro="required" texto="Informe uma descrição"></app-message>
-          <app-message [controle]="descricao" erro="minlength" texto=" Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message> -->  
+          <app-message [controle]="descricao" erro="minlength" texto=" Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message> 
           
           <!-- Forma Antiga de fazer validacao de Mensangens de ERRO sem Componentes-->
           <!--

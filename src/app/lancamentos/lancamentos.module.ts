@@ -20,6 +20,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 
 //Currency Mask
 import {CurrencyMaskModule} from 'ng2-currency-mask'
+import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {CurrencyMaskModule} from 'ng2-currency-mask'
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
 
     ButtonModule,
     InputTextModule,
