@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { FormsModule } from '@angular/forms';
@@ -25,8 +24,8 @@ import { SharedModule } from './../shared/shared.module';
 @NgModule({
   declarations: [
     LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
-    LancamentosGridComponent
+    LancamentosPesquisaComponent
+    
   ],
   imports: [
     CommonModule,
@@ -47,7 +46,7 @@ import { SharedModule } from './../shared/shared.module';
   ],
   exports : [
     LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
+    LancamentosPesquisaComponent
   ]
 })
 export class LancamentosModule { }
