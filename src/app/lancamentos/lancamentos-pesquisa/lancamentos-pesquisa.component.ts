@@ -1,10 +1,14 @@
 import { Component, OnInit  , ViewChild} from '@angular/core'; 
 import { LancamentoService, LancamentoFilter } from './../lancamento.service';
 import { LazyLoadEvent } from 'primeng/api/public_api';
+import { MessageService } from 'primeng/api'; 
+
+
+
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
-  styleUrls: ['./lancamentos-pesquisa.component.css']
+  styleUrls: ['./lancamentos-pesquisa.component.css'] 
 })
 export class LancamentosPesquisaComponent implements OnInit {
   
@@ -16,7 +20,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   ptbr : any;
   @ViewChild('tabelaLancamento', {static: true}) grid: any; // @ViewChild : procura a "#tabelaLancamento" dentro do html (lancamentos-pesqusia.componente.html), tendo acesso ao objeto de TABELA
 
-  constructor(private lancamentoService: LancamentoService) { }
+  constructor(private lancamentoService: LancamentoService, private messageService: MessageService) { }
 
   ngOnInit() {
     //this.pesquisar();
@@ -70,7 +74,15 @@ export class LancamentosPesquisaComponent implements OnInit {
     console.log(lancamento.codigo);
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
-        this.grid.reset(); // exibir a partir do registo zero
+        if (this.grid.first === 0) {
+          this.pesquisar();
+        } else {
+          this.grid.reset(); // exibir a partir do registo zero
+        }
+
+        this.messageService.add({severity:'success', summary:'Lançamento', detail:"Lançamento de código "+ lancamento.codigo + " foi excluído com sucesso"});
+        //this.toastyService.success("Lançamento  ${lancamento.pessoa} excluído com sucesso !");
+        //this.toastyService.info("Obrigado pela preferência!");
       });
 }
   

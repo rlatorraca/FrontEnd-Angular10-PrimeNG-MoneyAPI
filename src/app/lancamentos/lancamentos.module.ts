@@ -16,10 +16,13 @@ import {TabViewModule} from 'primeng/tabview';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputMaskModule} from 'primeng/inputmask';
+import {ToastModule} from 'primeng/toast';
+
 
 //Currency Mask
 import {CurrencyMaskModule} from 'ng2-currency-mask'
 import { SharedModule } from './../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -30,9 +33,8 @@ import { SharedModule } from './../shared/shared.module';
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
-
-    ButtonModule,
+    SharedModule,    
+    ButtonModule,    
     InputTextModule,
     TableModule,
     TooltipModule,
@@ -42,7 +44,8 @@ import { SharedModule } from './../shared/shared.module';
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ToastModule
   ],
   exports : [
     LancamentoCadastroComponent,

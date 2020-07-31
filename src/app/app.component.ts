@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {MessageService} from 'primeng/api';
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,5 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rlspmoney-ui';
+
+  constructor(private mensageService : MessageService) {}
 
 }
