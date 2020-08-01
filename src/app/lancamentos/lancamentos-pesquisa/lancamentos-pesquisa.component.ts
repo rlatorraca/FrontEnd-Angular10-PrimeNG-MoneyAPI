@@ -2,6 +2,8 @@ import { Component, OnInit  , ViewChild} from '@angular/core';
 import { LancamentoService, LancamentoFilter } from './../lancamento.service';
 import { LazyLoadEvent } from 'primeng/api/public_api';
 import { MessageService } from 'primeng/api'; 
+import {ConfirmationService} from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 
 
@@ -18,9 +20,14 @@ export class LancamentosPesquisaComponent implements OnInit {
   descricao : string;
   en : any;
   ptbr : any;
-  @ViewChild('tabelaLancamento', {static: true}) grid: any; // @ViewChild : procura a "#tabelaLancamento" dentro do html (lancamentos-pesqusia.componente.html), tendo acesso ao objeto de TABELA
+  @ViewChild('tabelaLancamento', {static: true}) grid: any; // @ViewChild : procura a "#tabelaLancamento" dentro do html (lancamentos-pesquisa.componente.html), tendo acesso ao objeto de TABELA
 
-  constructor(private lancamentoService: LancamentoService, private messageService: MessageService) { }
+  constructor(
+      private lancamentoService: LancamentoService, 
+      private messageService: MessageService,
+      private confirmation : ConfirmationService,
+      private errorHandler : ErrorHandlerService) 
+  { }
 
   ngOnInit() {
     //this.pesquisar();
@@ -60,7 +67,8 @@ export class LancamentosPesquisaComponent implements OnInit {
       .then(resultado => {
         this.totalRegistros = resultado.total; // recebe o total de registros existentes
         this.lancamentos = resultado.lancamentos; // recebe todos os elementos da pesquisa
-      });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
       
   }
 
@@ -70,8 +78,19 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  excluir(lancamento: any) {
-    console.log(lancamento.codigo);
+  confirmarExclusao(lancamento: any) {
+
+    this.confirmation.confirm({
+      message: "Tem certeza que deseja excluir ?",
+      accept : () =>{
+        this.excluir(lancamento);        
+      }
+    });
+    
+  }
+
+  excluir(lancamento : any) {
+
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
         if (this.grid.first === 0) {
@@ -79,11 +98,12 @@ export class LancamentosPesquisaComponent implements OnInit {
         } else {
           this.grid.reset(); // exibir a partir do registo zero
         }
-
+  
         this.messageService.add({severity:'success', summary:'Lançamento', detail:"Lançamento de código "+ lancamento.codigo + " foi excluído com sucesso"});
         //this.toastyService.success("Lançamento  ${lancamento.pessoa} excluído com sucesso !");
         //this.toastyService.info("Obrigado pela preferência!");
-      });
-}
+      }) 
+      .catch(erro => this.errorHandler.handle(erro));
+  }
   
 }

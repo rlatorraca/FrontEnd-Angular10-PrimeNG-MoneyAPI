@@ -1,6 +1,8 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -11,12 +13,12 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { PessoaService } from './pessoas/pessoa.service';
-import {ToastModule} from 'primeng/toast';
 
 
 
-import {MessageService} from 'primeng/api';
 
+
+registerLocaleData(localePt); // Registra a aplicacao como PT-BR
 @NgModule({
   declarations: [
     AppComponent,    
@@ -25,12 +27,14 @@ import {MessageService} from 'primeng/api';
     BrowserModule,
     BrowserAnimationsModule,
     LancamentosModule,
-    ToastModule,    
     PessoasModule,
     CoreModule,    
-    HttpClientModule
+    HttpClientModule,
+    
+    
   ],
-  providers: [LancamentoService, PessoaService, MessageService],
+  providers: [LancamentoService, PessoaService],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

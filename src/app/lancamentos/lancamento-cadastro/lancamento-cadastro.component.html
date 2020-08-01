@@ -18,7 +18,7 @@
         </div>
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>{{ tipo.value ==='RECEITA' ? 'Data de Recebimento' : 'Data de Pagamento'}}</label>
-          <p-calendar dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="true" [showIcon]="false" [locale]="en" ngModel required></p-calendar>
+          <p-calendar dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="true" [showIcon]="false" [locale]="en" name="pagamento" ngModel #pagamento="ngModel" required></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-9 ui-fluid">
@@ -37,7 +37,7 @@
           </div>
           <div *ngIf="descricao.hasError('minlength') && descricao.dirty" class="ui-messages ui-messages-error">
             Mínimo de {{ descricao.errors.minlength.requiredLength }} caracteres. Você digitou apenas {{ descricao.errors.minlength.actualLength }}
-        </div>
+          </div>
         -->
         
       </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="ui-g-12 ui-fluid">
           <label>Observação</label>
-          <textarea pInputTextarea rows="3"></textarea>
+          <textarea pInputTextarea rows="3" name="pessoa" ngModel></textarea>
         </div>
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" style="margin-right: 8px" [disabled]="!lancamentoForm.valid"></button>
