@@ -1,5 +1,5 @@
 <div class="container">
-    <form #pessoaForm="ngForm" autocomplete="off"autocomplete="off">
+    <form #formulario="ngForm" autocomplete="off" (ngSubmit)="salvar(formulario)">
   
       <div class="ui-g">
         <div class="ui-g-12">
@@ -8,31 +8,31 @@
   
         <div class="ui-g-12 ui-fluid">
           <label>Nome</label>
-          <input pInputText type="text" name="nome" ngModel #nome="ngModel" required minlength="5">
+          <input pInputText type="text" [(ngModel)]="pessoa.nome" name="nome"  #nome="ngModel" required minlength="5">
           <app-message [controle]="nome" erro="required" texto="Informe o nome"></app-message>
           <app-message [controle]="nome" erro="minlength" texto=" Mínimo de {{ nome.errors?.minlength?.requiredLength }} caracteres."></app-message>
         </div>
   
         <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Logradouro</label>
-          <input pInputText type="text" name="logradouro" ngModel #logradouro="ngModel" required>
+          <input pInputText type="text" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" #logradouro="ngModel" required>
           <app-message [controle]="logradouro" erro="required" texto="Informe o logradouro"></app-message>
         </div>
   
         <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Número</label>
-          <input pInputText type="text" name="numero" ngModel #numero="ngModel" required>
+          <input pInputText type="text" [(ngModel)]="pessoa.endereco.numero" name="numero" #numero="ngModel" required>
           <app-message [controle]="numero" erro="required" texto="Informe o número"></app-message>
         </div>
   
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Complemento</label>
-          <input pInputText type="text" ngModel>
+          <input pInputText type="text" [(ngModel)]="pessoa.endereco.numero" name="complemento">
         </div>
   
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Bairro</label>
-          <input pInputText type="text" name="bairro" ngModel #bairro="ngModel" required>
+          <input pInputText type="text"  [(ngModel)]="pessoa.endereco.bairro" name="bairro" #bairro="ngModel" required>
           <app-message [controle]="bairro" erro="required" texto="Informe o bairro"></app-message>
         </div>
         
@@ -43,27 +43,27 @@
          -->
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>CEP</label>
-          <p-inputMask mask="99.999-999" name="cep" ngModel #cep="ngModel" required></p-inputMask>
+          <p-inputMask mask="99.999-999"  [(ngModel)]="pessoa.endereco.cep" name="cep" ngModel #cep="ngModel" required></p-inputMask>
           <app-message [controle]="cep" erro="required" texto="Informe o CEP"></app-message>
         </div>
   
         <div class="ui-g-12 ui-md-6 ui-fluid">
           <label>Cidade</label>
-          <input pInputText type="text" name="cidade" ngModel #cidade="ngModel" required>
+          <input pInputText type="text"  [(ngModel)]="pessoa.endereco.cidade" name="cidade" #cidade="ngModel" required>
           <app-message [controle]="cidade" erro="required" texto="Informe o bairro"></app-message>
         </div>
   
         <div class="ui-g-12 ui-md-6 ui-fluid">
           <label>Estado</label>
-          <input pInputText type="text" name="estado" ngModel #estado="ngModel" required>
+          <input pInputText type="text"  [(ngModel)]="pessoa.endereco.estado" name="estado" #estado="ngModel" required>
           <app-message [controle]="estado" erro="required" texto="Informe o estado"></app-message>
         </div>
   
         <div class="ui-g-12">
-          <button pButton type="submit" label="Salvar" [disabled]="!pessoaForm.valid"></button>
+          <button pButton type="submit" label="Salvar" [disabled]="!formulario.valid"></button>
           <button pButton type="button" label="Novo" class="ui-button-info"></button>
   
-          <a href="javascript:;">Voltar para a pesquisa</a>
+          <a routerLink="/pessoas">Voltar para a pesquisa</a>
         </div>
       </div>
   

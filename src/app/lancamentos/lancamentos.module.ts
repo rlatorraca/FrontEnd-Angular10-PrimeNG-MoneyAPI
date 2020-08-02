@@ -22,6 +22,7 @@ import {ToastModule} from 'primeng/toast';
 //Currency Mask
 import {CurrencyMaskModule} from 'ng2-currency-mask'
 import { SharedModule } from './../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -44,8 +45,11 @@ import { SharedModule } from './../shared/shared.module';
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
+    
     CurrencyMaskModule,
-    ToastModule
+    ToastModule,
+    
+    RouterModule
   ],
   exports : [
     LancamentoCadastroComponent,

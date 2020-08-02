@@ -10,11 +10,14 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 
 import {ConfirmationService} from 'primeng/api'
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [ NavbarComponent ],
   
   imports: [ 
     CommonModule,
+
+    RouterModule,
 
     ConfirmDialogModule,
     ToastModule,    ],

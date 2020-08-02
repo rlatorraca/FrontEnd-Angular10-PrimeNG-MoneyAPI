@@ -16,6 +16,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TabViewModule} from 'primeng/tabview';
 import {InputMaskModule} from 'primeng/inputmask';
 import { SharedModule } from './../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -36,7 +37,9 @@ import { SharedModule } from './../shared/shared.module';
     TooltipModule,
     InputTextareaModule,    
     TabViewModule,    
-    InputMaskModule
+    InputMaskModule,
+
+    RouterModule
     
   ],
   exports : [

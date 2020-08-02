@@ -17,7 +17,9 @@ export class Estado {
     complemento: string;
     bairro: string;
     cep: string;
-    cidade = new Cidade();
+    //cidade = new Cidade();
+    cidade : string;
+    estado : string;
   }
   
   export class Contato {
@@ -38,7 +40,11 @@ export class Estado {
   }
   
   export class Pessoa {
+    
     codigo: number;
+    nome: string;
+    endereco = new Endereco();
+    ativo = true;
 
   }
   
@@ -60,10 +66,19 @@ export class Estado {
     urlAnexo: string;
 
     static toJson(lancamento: Lancamento): any {
-        return {
-          ...lancamento,
+
+      if(lancamento.dataPagamento) {
+        return{ ...Lancamento, 
           dataVencimento: moment(lancamento.dataVencimento).format('YYYY-MM-DD'),
           dataPagamento: moment(lancamento.dataPagamento).format('YYYY-MM-DD')
+        }
+      } else {  
+        return {
+          ...lancamento,
+          dataVencimento: moment(lancamento.dataVencimento).format('YYYY-MM-DD') ,
+          dataPagamento: "" 
+
         };
       }
+    }
   }

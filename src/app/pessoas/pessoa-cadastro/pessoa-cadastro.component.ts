@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Pessoa } from 'src/app/core/model';
+import { CategoriaService } from 'src/app/categorias/categoria.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { PessoaService } from '../pessoa.service';
+import { MessageService } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -7,9 +13,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PessoaCadastroComponent implements OnInit {
 
-  constructor() { }
+  pessoa = new Pessoa();
+  
+  constructor(
+    private categoriaService: CategoriaService,
+    private errorHandler: ErrorHandlerService,
+    private pessoaService : PessoaService,    
+    private messageService : MessageService
+  ) { }
 
   ngOnInit(): void {
   }
+
+  salvar(form: NgForm) {
+    this.pessoaService.adicionar(this.pessoa)
+      .then(() => {
+        this.messageService.add({severity:'success', summary:'Inclusão de Lançamento ', detail:""+ this.pessoa.nome + " foi adicionado com sucesso"});        
+
+        form.reset();
+        this.pessoa = new Pessoa();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+  
 
 }

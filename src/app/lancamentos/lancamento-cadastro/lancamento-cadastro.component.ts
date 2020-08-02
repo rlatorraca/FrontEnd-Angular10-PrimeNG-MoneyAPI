@@ -10,6 +10,7 @@ import { Lancamento } from './../../core/model'
 import { LancamentoService } from '../lancamento.service';
 
 import { MessageService } from 'primeng/api'; 
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -36,9 +37,18 @@ export class LancamentoCadastroComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private pessoaService : PessoaService,
     private lancamentoService : LancamentoService,
-    private messageService : MessageService) { }
+    private messageService : MessageService,
+    private route : ActivatedRoute) { }
 
+    //  private route : ActivatedRoute  ==> usado para identificar se a ROTA é para CADASTRAR ou se a rota é para EDITAR algum
+    //    - isso gracas ao token incluido no const routes : Routes = [ { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent } ]
+  
   ngOnInit(): void {
+
+    const codigoParaEdicao = this.route.snapshot.params['codigo'];
+    if (codigoParaEdicao) {
+      this.carregarLancamento(codigoParaEdicao);
+    }
 
     this.carregarCategorias();
     this.carregarPessoas();
@@ -72,15 +82,55 @@ export class LancamentoCadastroComponent implements OnInit {
     
   }
 
+  get editando() {
+    return Boolean(this.lancamento.codigo);
+  }
+
+  carregarLancamento(codigo : number) {
+
+    this.lancamentoService.buscarPorCodigo(codigo)
+      .then(lancamento => {
+        this.lancamento = lancamento;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
   salvar(form: NgForm) {
+    if (this.editando) {
+      this.atualizarLancamento(form);
+    } else {
+      this.adicionarLancamento(form);
+    }
+  }
+
+  adicionarLancamento(form: NgForm) {
 
     this.lancamentoService.adicionar(this.lancamento)
       .then(() => {
-        this.messageService.add({severity:'success', summary:'Inclusão de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi incluído com sucesso"});
+        this.messageService.add({severity:'success', summary:'Inclusão de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi INCLUÍDO com sucesso"});
         //this.toasty.success('Lançamento adicionado com sucesso!');
 
         form.reset();
         this.lancamento = new Lancamento();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  
+    console.log(this.lancamento);
+    // if (this.editando) {
+    //   this.atualizarLancamento();
+    // } else {
+    //   this.adicionarLancamento();
+    // }
+  }
+
+  atualizarLancamento(form: NgForm) {
+
+    this.lancamentoService.atualizar(this.lancamento)
+      .then( lancamento => {
+        this.messageService.add({severity:'success', summary:'Atualização de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi ATUALIZADO com sucesso"});
+        //this.toasty.success('Lançamento adicionado com sucesso!');
+        this.lancamento = lancamento;        
+        
       })
       .catch(erro => this.errorHandler.handle(erro));
   
