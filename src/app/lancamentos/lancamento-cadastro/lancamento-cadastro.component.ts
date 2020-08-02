@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; 
+import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
+
+
+
+import { PessoaService } from './../../pessoas/pessoa.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { CategoriaService } from './../../categorias/categoria.service';
+import { Lancamento } from './../../core/model'
+import { LancamentoService } from '../lancamento.service';
+
+import { MessageService } from 'primeng/api'; 
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -10,26 +21,27 @@ export class LancamentoCadastroComponent implements OnInit {
   dataVencimento : Date;
   en: any;
   ptbr: any;
+  categorias = [];
+  pessoas = [];
+  lancamento = new Lancamento;
 
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' },
   ];
 
-  categorias = [
-    { label: 'Alimentação', value: 1 },
-    { label: 'Transporte', value: 2 },
-  ];
 
-  pessoas = [
-    { label: 'João da Silva', value: 4 },
-    { label: 'Sebastião Souza', value: 9 },
-    { label: 'Maria Abadia', value: 3 },
-  ];
-
-  constructor() { }
+  constructor(
+    private categoriaService: CategoriaService,
+    private errorHandler: ErrorHandlerService,
+    private pessoaService : PessoaService,
+    private lancamentoService : LancamentoService,
+    private messageService : MessageService) { }
 
   ngOnInit(): void {
+
+    this.carregarCategorias();
+    this.carregarPessoas();
 
     this.en = {
       firstDayOfWeek: 0,
@@ -56,8 +68,47 @@ export class LancamentoCadastroComponent implements OnInit {
       clear: 'Limpar',
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Sem'
-    };
+    };   
     
   }
+
+  salvar(form: NgForm) {
+
+    this.lancamentoService.adicionar(this.lancamento)
+      .then(() => {
+        this.messageService.add({severity:'success', summary:'Inclusão de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi incluído com sucesso"});
+        //this.toasty.success('Lançamento adicionado com sucesso!');
+
+        form.reset();
+        this.lancamento = new Lancamento();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  
+    console.log(this.lancamento);
+    // if (this.editando) {
+    //   this.atualizarLancamento();
+    // } else {
+    //   this.adicionarLancamento();
+    // }
+  }
+
+  carregarCategorias() {
+    return this.categoriaService.listarTodas()
+      .then(categoria => {
+        this.categorias = categoria
+          .map(c => ({ label: c.nome, value: c.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarPessoas() {
+    this.pessoaService.listarTodas()
+      .then(pessoa => {
+        this.pessoas = pessoa
+          .map(p => ({ label: p.nome, value: p.codigo }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+  
 
 }
