@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'; 
-import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -10,7 +10,9 @@ import { Lancamento } from './../../core/model'
 import { LancamentoService } from '../lancamento.service';
 
 import { MessageService } from 'primeng/api'; 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -38,17 +40,22 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoaService : PessoaService,
     private lancamentoService : LancamentoService,
     private messageService : MessageService,
-    private route : ActivatedRoute) { }
+    private route : ActivatedRoute,
+    private router: Router,
+    private title : Title) { }
 
-    //  private route : ActivatedRoute  ==> usado para identificar se a ROTA é para CADASTRAR ou se a rota é para EDITAR algum
+    //  route : ActivatedRoute  ==> usado para identificar se a ROTA é para CADASTRAR ou se a rota é para EDITAR algum
     //    - isso gracas ao token incluido no const routes : Routes = [ { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent } ]
-  
+    //
+    // router: Route ==> usado para fazer o redirecionamento para pagina de edição quando for salvo  um lancamento
   ngOnInit(): void {
 
     const codigoParaEdicao = this.route.snapshot.params['codigo'];
     if (codigoParaEdicao) {
       this.carregarLancamento(codigoParaEdicao);
     }
+
+    this.title.setTitle('Cadastro de Lancamento');
 
     this.carregarCategorias();
     this.carregarPessoas();
@@ -86,11 +93,13 @@ export class LancamentoCadastroComponent implements OnInit {
     return Boolean(this.lancamento.codigo);
   }
 
+  //carrega o lancamento pra ser alterado (metodo put)
   carregarLancamento(codigo : number) {
 
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(lancamento => {
         this.lancamento = lancamento;
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -106,12 +115,14 @@ export class LancamentoCadastroComponent implements OnInit {
   adicionarLancamento(form: NgForm) {
 
     this.lancamentoService.adicionar(this.lancamento)
-      .then(() => {
+      .then( lancamentoAdicionado => {
         this.messageService.add({severity:'success', summary:'Inclusão de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi INCLUÍDO com sucesso"});
         //this.toasty.success('Lançamento adicionado com sucesso!');
 
-        form.reset();
-        this.lancamento = new Lancamento();
+        //form.reset();
+        //this.lancamento = new Lancamento();
+        this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
+
       })
       .catch(erro => this.errorHandler.handle(erro));
   
@@ -130,6 +141,7 @@ export class LancamentoCadastroComponent implements OnInit {
         this.messageService.add({severity:'success', summary:'Atualização de Lançamento ', detail:"Lançamento de código "+ this.lancamento.descricao + " foi ATUALIZADO com sucesso"});
         //this.toasty.success('Lançamento adicionado com sucesso!');
         this.lancamento = lancamento;        
+        this.atualizarTituloEdicao();
         
       })
       .catch(erro => this.errorHandler.handle(erro));
@@ -161,4 +173,17 @@ export class LancamentoCadastroComponent implements OnInit {
   }
   
 
+  novo(form: NgForm) {
+    form.reset();
+
+    setTimeout(function() {
+      this.lancamento = new Lancamento();
+    }.bind(this), 1);
+
+    this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao(){
+    this.title.setTitle('Edicao de Lancamento : ' + this.lancamento.descricao);
+  }
 }

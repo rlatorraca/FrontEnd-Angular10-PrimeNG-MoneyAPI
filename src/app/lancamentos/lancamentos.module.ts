@@ -5,6 +5,7 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { FormsModule } from '@angular/forms';
 
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 // PrimeNG Modules
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -49,11 +50,8 @@ import { RouterModule } from '@angular/router';
     CurrencyMaskModule,
     ToastModule,
     
-    RouterModule
+    LancamentosRoutingModule
   ],
-  exports : [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
-  ]
+  exports : [ ]
 })
 export class LancamentosModule { }

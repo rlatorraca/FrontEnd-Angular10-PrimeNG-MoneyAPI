@@ -5,6 +5,7 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { PessoaService } from '../pessoa.service';
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -19,7 +20,8 @@ export class PessoaCadastroComponent implements OnInit {
     private categoriaService: CategoriaService,
     private errorHandler: ErrorHandlerService,
     private pessoaService : PessoaService,    
-    private messageService : MessageService
+    private messageService : MessageService,
+    private title : Title
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,10 @@ export class PessoaCadastroComponent implements OnInit {
         this.pessoa = new Pessoa();
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+  
+  atualizarTituloEdicao(){
+    this.title.setTitle('Edicao de Lancamento : ' + this.pessoa.nome);
   }
   
 

@@ -4,6 +4,7 @@ import { LazyLoadEvent } from 'primeng/api/public_api';
 import { MessageService } from 'primeng/api'; 
 import {ConfirmationService} from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -26,11 +27,13 @@ export class LancamentosPesquisaComponent implements OnInit {
       private lancamentoService: LancamentoService, 
       private messageService: MessageService,
       private confirmation : ConfirmationService,
-      private errorHandler : ErrorHandlerService) 
+      private errorHandler : ErrorHandlerService,
+      private title : Title) 
   { }
 
   ngOnInit() {
     //this.pesquisar();
+    this.title.setTitle('Pesquisa de Lancamentos');
     this.en = {
       firstDayOfWeek: 0,
       dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -105,5 +108,6 @@ export class LancamentosPesquisaComponent implements OnInit {
       }) 
       .catch(erro => this.errorHandler.handle(erro));
   }
+
   
 }
