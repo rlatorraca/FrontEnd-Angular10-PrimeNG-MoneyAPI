@@ -18,7 +18,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { SharedModule } from './../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
-
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,10 @@ import { RouterModule } from '@angular/router';
     TabViewModule,    
     InputMaskModule,
 
-    RouterModule
+    RouterModule,
+
+    PessoasRoutingModule
+
     
   ],
   exports : [ ]

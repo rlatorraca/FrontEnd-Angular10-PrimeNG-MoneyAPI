@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MessageService} from 'primeng/api';
+import { Router } from '@angular/router';
 
 
 
@@ -11,6 +12,12 @@ import {MessageService} from 'primeng/api';
 export class AppComponent {
   title = 'rlspmoney-ui';
 
-  constructor(private mensageService : MessageService) {}
+  constructor(
+    private mensageService : MessageService, 
+    private router : Router) {}
+
+  exibindoNavbar() {
+    return this.router.url !== '/login';
+  }
 
 }

@@ -3,7 +3,7 @@
   
       <div class="ui-g">
         <div class="ui-g-12">
-          <h1>Nova Pessoa</h1>
+          <h1>{{ editando ? 'Edição de ' : " Novo "}} Pessoa</h1>          
         </div>
   
         <div class="ui-g-12 ui-fluid">
@@ -27,7 +27,7 @@
   
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Complemento</label>
-          <input pInputText type="text" [(ngModel)]="pessoa.endereco.numero" name="complemento">
+          <input pInputText type="text" [(ngModel)]="pessoa.endereco.complemento" name="complemento">
         </div>
   
         <div class="ui-g-12 ui-md-4 ui-fluid">
@@ -61,9 +61,10 @@
   
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" [disabled]="!formulario.valid"></button>
-          <button pButton type="button" label="Novo" class="ui-button-info"></button>
+          <button pButton type="button" label="Nova" class="ui-button-info"  (click)="nova(formulario)"></button>
   
           <a routerLink="/pessoas">Voltar para a pesquisa</a>
+          
         </div>
       </div>
   

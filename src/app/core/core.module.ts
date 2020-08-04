@@ -13,6 +13,9 @@ import {ConfirmationService} from 'primeng/api'
 import { RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from './../seguranca/auth.service'
+
+
 @NgModule({
   declarations: [ NavbarComponent, PaginaNaoEncontradaComponent ],
   
@@ -24,6 +27,14 @@ import { Title } from '@angular/platform-browser';
     ConfirmDialogModule,
     ToastModule,    ],
   exports: [ NavbarComponent, ToastModule, ConfirmDialogModule ],
-  providers: [ LancamentoService, PessoaService, ErrorHandlerService,  MessageService, ConfirmationService, Title]
+  providers: [ 
+    LancamentoService, 
+    PessoaService, 
+    ErrorHandlerService,  
+    MessageService, 
+    ConfirmationService, 
+    Title, 
+    AuthService
+ ]
 })
 export class CoreModule { }
