@@ -14,6 +14,10 @@ export class AuthService {
     this.carregarToken();
    }
 
+   temPermissao(permissao: string){
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+   }
+
   login(usuario : string, senha : string) : Promise<void>{
     const headers = new HttpHeaders()
         .append('Content-Type', 'application/x-www-form-urlencoded')
@@ -30,13 +34,13 @@ export class AuthService {
       })
       .catch(response => {
         console.log(response);
+        const responseError = response.error;
         if (response.status === 400) {
-          if (response.error.error === 'invalid_grant') {
-            return Promise.reject('Usuário ou senha inválida!');
+          if (responseError.error === 'invalid_grant') {
+            return Promise.reject('Usuário ou senha inválida');
           }
         }
-
-        return Promise.reject(response);
+        return Promise.reject(response);        
       });
   }
 

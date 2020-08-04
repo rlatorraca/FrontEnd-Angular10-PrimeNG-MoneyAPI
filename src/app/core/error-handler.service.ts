@@ -30,6 +30,6 @@ export class ErrorHandlerService {
       console.log('Ocorreu um erro remoto', errorResponse);
     }
 
-    this.messageService.add({severity:'danger', summary:'Erro', detail:msg});
+    this.messageService.add({severity:'error', summary:'Erro', detail:msg});
   }
 }
