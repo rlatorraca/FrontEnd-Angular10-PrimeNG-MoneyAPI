@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Pessoa } from './../core/model';
-
+import { environment } from './../../environments/environment';
 
 export class PessoaFilter {
     nome : string;    
@@ -16,9 +16,11 @@ export class PessoaFilter {
 })
 export class PessoaService {
 
-  pessoaURL = 'http://localhost:8080/pessoas';
+  pessoaURL :string;
 
-  constructor(private http:HttpClient) {  }
+  constructor(private http:HttpClient) { 
+    this.pessoaURL = `${environment.apiURL}/pessoas`;
+   }
 
   pesquisar(filtro : PessoaFilter): Promise<any> {
     

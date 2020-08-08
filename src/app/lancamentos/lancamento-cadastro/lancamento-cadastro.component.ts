@@ -126,7 +126,7 @@ export class LancamentoCadastroComponent implements OnInit {
       })
       .catch(erro => this.errorHandler.handle(erro));
   
-    console.log(this.lancamento);
+    
     // if (this.editando) {
     //   this.atualizarLancamento();
     // } else {

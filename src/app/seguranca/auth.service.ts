@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  oauthTokenUrl : string;
   jwtPayload: any;
 
   constructor( private http : HttpClient,  private jwtHelper: JwtHelperService,) {
+    this.oauthTokenUrl = `${environment.apiURL}/oauth/token`;
     this.carregarToken();
    }
 
@@ -19,7 +23,7 @@ export class AuthService {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
    }
 
-   //Usado pelo AuthGuard para gerenciar as guardar de rotas, para verificar se o usuario podera acessar determinada ROTA/PAGINA
+   //Usado pelo AuthGuard para gerenciar as guardar de rotas, para verificar se o usuário poderá acessar determinada ROTA/PAGINA
    temQualquerPermissao(roles) {
     for (const role of roles) {
       if (this.temPermissao(role)) {
@@ -40,12 +44,12 @@ export class AuthService {
     return this.http.post<any>(this.oauthTokenUrl, body, {headers, withCredentials: true})
       .toPromise()
       .then(response => {
-        console.log(response);
+        
         //this.armazenarToken(response.access_token());
         this.armazenarToken(response.access_token);
       })
       .catch(response => {
-        console.log(response);
+        
         const responseError = response.error;
         if (response.status === 400) {
           if (responseError.error === 'invalid_grant') {
@@ -56,6 +60,10 @@ export class AuthService {
       });
   }
 
+  limparAccessToken(){
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
+  }
 
   private armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token);

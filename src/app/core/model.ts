@@ -68,7 +68,7 @@ export class Estado {
     static toJson(lancamento: Lancamento): any {
 
       if(lancamento.dataPagamento) {
-        return{ ...Lancamento, 
+        return{ ...lancamento, 
           dataVencimento: moment(lancamento.dataVencimento).format('YYYY-MM-DD'),
           dataPagamento: moment(lancamento.dataPagamento).format('YYYY-MM-DD')
         }
