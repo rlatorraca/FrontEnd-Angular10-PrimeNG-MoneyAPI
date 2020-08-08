@@ -14,9 +14,21 @@ export class AuthService {
     this.carregarToken();
    }
 
+  //  Verifica se tem permissao de acesso ==> ROLES
    temPermissao(permissao: string){
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
    }
+
+   //Usado pelo AuthGuard para gerenciar as guardar de rotas, para verificar se o usuario podera acessar determinada ROTA/PAGINA
+   temQualquerPermissao(roles) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   login(usuario : string, senha : string) : Promise<void>{
     const headers = new HttpHeaders()

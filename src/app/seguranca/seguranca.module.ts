@@ -8,7 +8,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 
-
+import { AuthGuard } from './auth.guard';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 
@@ -35,7 +35,8 @@ export function tokenGetter(): string {
   ],
   declarations: [LoginFormComponent],
   providers : [
-    JwtHelperService
+    JwtHelperService,
+    AuthGuard
   ]
 })
 export class SegurancaModule { }

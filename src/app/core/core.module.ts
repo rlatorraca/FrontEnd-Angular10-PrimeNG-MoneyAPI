@@ -13,8 +13,7 @@ import {ConfirmationService} from 'primeng/api'
 import { RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { Title } from '@angular/platform-browser';
-import { AuthService } from './../seguranca/auth.service'
-
+import { AuthService } from './../seguranca/auth.service';
 
 @NgModule({
   declarations: [ NavbarComponent, PaginaNaoEncontradaComponent ],

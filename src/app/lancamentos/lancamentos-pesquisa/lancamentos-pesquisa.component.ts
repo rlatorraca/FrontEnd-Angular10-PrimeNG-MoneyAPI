@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from './../../seguranca/auth.service';
 
 
 
@@ -25,11 +26,16 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   constructor(
       private lancamentoService: LancamentoService, 
+      public auth: AuthService,
       private messageService: MessageService,
       private confirmation : ConfirmationService,
       private errorHandler : ErrorHandlerService,
       private title : Title) 
   { }
+
+  privateAccess(){
+    return this.auth;
+}
 
   ngOnInit() {
     //this.pesquisar();

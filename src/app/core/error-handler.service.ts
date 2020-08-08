@@ -20,6 +20,9 @@ export class ErrorHandlerService {
     } else if (errorResponse instanceof HttpErrorResponse && errorResponse.status >=400 && errorResponse.status < 500){
       let errors;
       msg = 'Ocorreu um erro ao processar a sua solicitação'
+      if (errorResponse.status === 403) {
+        msg = 'Você não tem permissão para executar esta ação';
+      }
       try{
         errors = errorResponse.error[0];
       } catch (e){     }
