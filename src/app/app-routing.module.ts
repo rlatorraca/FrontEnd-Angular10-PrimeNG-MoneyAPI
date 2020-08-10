@@ -7,6 +7,10 @@ import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadast
 import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 const routes: Routes = [
+
+  { path: 'lancamentos', loadChildren: () => import('./lancamentos/lancamentos.module').then(m => m.LancamentosModule) },//LazyLoading
+  { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },//LazyLoading
+ 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },

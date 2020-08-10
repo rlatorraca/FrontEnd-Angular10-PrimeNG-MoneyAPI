@@ -9,8 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { LancamentosModule } from './lancamentos/lancamentos.module';
-import { PessoasModule } from './pessoas/pessoas.module';
+//import { LancamentosModule } from './lancamentos/lancamentos.module';
+//import { PessoasModule } from './pessoas/pessoas.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,8 +41,8 @@ registerLocaleData(localePt); // Registra a aplicação como PT-BR
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    LancamentosModule,
-    PessoasModule,
+    //LancamentosModule,
+    //PessoasModule,
     CoreModule,    
     HttpClientModule,
     SegurancaModule,
