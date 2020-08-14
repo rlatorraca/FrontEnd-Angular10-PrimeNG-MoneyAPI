@@ -8,8 +8,9 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class DashboardService {
-   
+
   lancamentosUrl: string;
+  test : string
 
   constructor(private http: HttpClient) {
     this.lancamentosUrl = `${environment.apiURL}/lancamentos`;

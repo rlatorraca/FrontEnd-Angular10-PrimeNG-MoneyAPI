@@ -21,7 +21,7 @@
             "aot": true,
             "allowedCommonJsDependencies": [
               "chart.js"
-           ],
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -98,10 +98,9 @@
             "styles": [
               "node_modules/ng2-toasty/style-bootstrap.css",
               "node_modules/ng2-toasty/style-default.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css",              
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ]
-           
           }
         },
         "lint": {
@@ -130,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rlspmoney-ui"
+    }
+  },
+  "defaultProject": "rlspmoney-ui",
+  "cli": {
+    "analytics": false
+  }
 }
