@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './../dashboard.service';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,26 +14,40 @@ export class DashboardComponent implements OnInit {
 
   pieChartData: any;
   lineChartData: any;
- 
-  
-  constructor(private dashboardService : DashboardService) { 
 
-   
-    
-  }
+
+
+  constructor(private dashboardService : DashboardService, private decimalPipe: DecimalPipe ) {  }
+
+
 
   ngOnInit(): void {
     this.configurarGraficoDePizza();
     this.configurarGraficoDeLinha();
   }
 
+  options = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          const dataset = data.datasets[tooltipItem.datasetIndex];
+          const valor = dataset.data[tooltipItem.index];
+          const label = dataset.label ? (dataset.label + ': ') : '';
+
+          return label + this.decimalPipe.transform(valor, '1.2-2');
+        }
+      }
+    }
+  };
+
+
   configurarGraficoDeLinha() {
     this.dashboardService.lancamentosPorDia()
       .then(dados => {
         const todosDiasDoMes = this.configurarDiasDoMes();
         const totalReceitas = this.dadosTotaisPorCadaDiaDoMes(dados.filter(dado => dado.tipo === 'RECEITA'), todosDiasDoMes);
-        const totalDespesas = this.dadosTotaisPorCadaDiaDoMes(dados.filter(dado => dado.tipo === 'DESPESA'), todosDiasDoMes);       
-        
+        const totalDespesas = this.dadosTotaisPorCadaDiaDoMes(dados.filter(dado => dado.tipo === 'DESPESA'), todosDiasDoMes);
+
 
         this.lineChartData = {
           labels: todosDiasDoMes,
@@ -49,7 +64,7 @@ export class DashboardComponent implements OnInit {
           ]
         }
       });
-   
+
   }
 
   private dadosTotaisPorCadaDiaDoMes(dados, totalDiasDoMes) {
