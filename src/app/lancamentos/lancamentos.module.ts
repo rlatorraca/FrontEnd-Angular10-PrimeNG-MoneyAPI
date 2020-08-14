@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
-import { FormsModule } from '@angular/forms';
+
+// import { LancamentoCadastroComponentOrientadoATemplate } from './lancamento-cadastro/lancamento-cadastro.component-OrientadoATemplate';
+import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 
 import { LancamentosRoutingModule } from './lancamentos-routing.module';
 // PrimeNG Modules
@@ -30,11 +32,15 @@ import { RouterModule } from '@angular/router';
   declarations: [
     LancamentoCadastroComponent,
     LancamentosPesquisaComponent
+
+   // LancamentoCadastroComponentOrientadoATemplate
     
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+
     SharedModule,    
     ButtonModule,    
     InputTextModule,

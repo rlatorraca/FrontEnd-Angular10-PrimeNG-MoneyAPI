@@ -15,6 +15,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 import { Title } from '@angular/platform-browser';
 import { AuthService } from './../seguranca/auth.service';
 
+import { DashboardService } from './../dashboard/dashboard.service'
+
 @NgModule({
   declarations: [ NavbarComponent, PaginaNaoEncontradaComponent ],
   
@@ -33,7 +35,8 @@ import { AuthService } from './../seguranca/auth.service';
     MessageService, 
     ConfirmationService, 
     Title, 
-    AuthService
+    AuthService,
+    DashboardService
  ]
 })
 export class CoreModule { }

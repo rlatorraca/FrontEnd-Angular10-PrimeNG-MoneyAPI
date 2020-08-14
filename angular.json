@@ -19,6 +19,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": [
+              "chart.js"
+           ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -29,7 +32,9 @@
               "node_modules/primeng/resources/primeng.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -95,8 +100,8 @@
               "node_modules/ng2-toasty/style-default.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",              
               "src/styles.css"
-            ],
-            "scripts": []
+            ]
+           
           }
         },
         "lint": {
