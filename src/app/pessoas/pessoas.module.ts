@@ -19,6 +19,8 @@ import { SharedModule } from './../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
 import { PessoasRoutingModule } from './pessoas-routing.module';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
     InputTextareaModule,    
     TabViewModule,    
     InputMaskModule,
+    PanelModule,
+    DialogModule,
 
     RouterModule,
 

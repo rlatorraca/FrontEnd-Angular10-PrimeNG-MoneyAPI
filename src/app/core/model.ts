@@ -1,10 +1,10 @@
 import * as moment from 'moment'
 
-export class Estado {
+  export class Estado {
     codigo: number;
     nome: string;
   }
-  
+
   export class Cidade {
     codigo: number;
     nome: string;
@@ -45,7 +45,7 @@ export class Estado {
     nome: string;
     endereco = new Endereco();
     ativo = true;
-
+    contatos = new Array<Contato>();
   }
   
   export class Categoria {

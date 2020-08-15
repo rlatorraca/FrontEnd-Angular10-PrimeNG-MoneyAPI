@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from './../seguranca/auth.service';
-
+import { RelatoriosService } from './../relatorios/relatorios.service';
 import { DashboardService } from './../dashboard/dashboard.service'
 
 @NgModule({
@@ -36,7 +36,8 @@ import { DashboardService } from './../dashboard/dashboard.service'
     ConfirmationService, 
     Title, 
     AuthService,
-    DashboardService
+    DashboardService,
+    RelatoriosService
  ]
 })
 export class CoreModule { }

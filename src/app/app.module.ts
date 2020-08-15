@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -50,8 +51,11 @@ registerLocaleData(localePt); // Registra a aplicação como PT-BR
     AppRoutingModule
     
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }    
+  ]  
   
 })
 export class AppModule { }

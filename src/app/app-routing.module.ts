@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'lancamentos', loadChildren: () => import('./lancamentos/lancamentos.module').then(m => m.LancamentosModule) },//LazyLoading
   { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },//LazyLoading
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },//LazyLoading
+  { path: 'relatorio', loadChildren: () => import('./relatorios/relatorios.module').then(m => m.RelatoriosModule) },//LazyLoading
  
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
