@@ -18,6 +18,7 @@ export class PessoaCadastroComponent implements OnInit {
   pessoa = new Pessoa();
   exibindoFormularioContato = false;
   contato: Contato;
+  contatoIndex : number ; // usado para fazer a Edicao do Contato
 
   constructor(
 
@@ -39,21 +40,33 @@ export class PessoaCadastroComponent implements OnInit {
     }
   }
 
+
   //usado para criar um nova instancia de contato ao acrescentar varios contatos ao mesmo tempo e um nao interferir no outro apos o reset do formulario
   novaInstanciaContato(contato : Contato) : Contato{
     return new Contato(contato.codigo, contato.nome, contato.email, contato.telefone);
   }
 
-
-  confirmarContato(frm : NgForm){
-    this.pessoa.contatos.push(this.novaInstanciaContato(this.contato));
-    this.exibindoFormularioContato = false;
-    frm.reset();
+  prepararEdicaoContato(contato : Contato ,index : number){
+    this.contato = this.novaInstanciaContato(contato);
+    this.exibindoFormularioContato = true;
+    this.contatoIndex = index;
   }
 
   prepararNovoContato() {
     this.exibindoFormularioContato = true;
     this.contato = new Contato();
+    this.contatoIndex = this.pessoa.contatos.length;
+  }
+
+  confirmarContato(frm : NgForm){
+    this.pessoa.contatos[this.contatoIndex] = this.novaInstanciaContato(this.contato);
+    //this.pessoa.contatos.push(this.novaInstanciaContato(this.contato));
+    this.exibindoFormularioContato = false;
+    frm.reset();
+  }
+
+  removerContato(rowIndex : number){
+    this.pessoa.contatos.splice(rowIndex, 1); // rowIndex : o indice da posicao de exclusao, 1 : quantidade de elementos a ser excluida
   }
 
   get editando() {
