@@ -6,12 +6,22 @@
         "money http interceptor"
     ],
     "cSpell.words": [
+        "Cadastro",
+        "Categoria",
+        "Contato",
+        "Instancia",
         "Lancamento",
+        "Pessoa",
+        "carregar",
+        "categorias",
         "codigo",
         "descricao",
+        "exibindo",
         "formulario",
         "lancamentos",
         "observacao",
-        "permissao"
+        "permissao",
+        "preparar",
+        "primeng"
     ]
 }

@@ -1,43 +1,43 @@
 <div class="container">
     <form #formulario="ngForm" autocomplete="off" (ngSubmit)="salvar(formulario)">
-  
+
       <div class="ui-g">
         <div class="ui-g-12">
-          <h1>{{ editando ? 'Edição de ' : " Novo "}} Pessoa</h1>          
+          <h1>{{ editando ? 'Edição de ' : " Novo "}} Pessoa</h1>
         </div>
-  
+
         <div class="ui-g-12 ui-fluid">
           <label>Nome</label>
           <input pInputText type="text" [(ngModel)]="pessoa.nome" name="nome"  #nome="ngModel" required minlength="5">
           <app-message [controle]="nome" erro="required" texto="Informe o nome"></app-message>
           <app-message [controle]="nome" erro="minlength" texto=" Mínimo de {{ nome.errors?.minlength?.requiredLength }} caracteres."></app-message>
         </div>
-  
+
         <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Logradouro</label>
           <input pInputText type="text" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" #logradouro="ngModel" required>
           <app-message [controle]="logradouro" erro="required" texto="Informe o logradouro"></app-message>
         </div>
-  
+
         <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Número</label>
           <input pInputText type="text" [(ngModel)]="pessoa.endereco.numero" name="numero" #numero="ngModel" required>
           <app-message [controle]="numero" erro="required" texto="Informe o número"></app-message>
         </div>
-  
+
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Complemento</label>
           <input pInputText type="text" [(ngModel)]="pessoa.endereco.complemento" name="complemento">
         </div>
-  
+
         <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Bairro</label>
           <input pInputText type="text"  [(ngModel)]="pessoa.endereco.bairro" name="bairro" #bairro="ngModel" required>
           <app-message [controle]="bairro" erro="required" texto="Informe o bairro"></app-message>
         </div>
-        
-        <!--   
-        a - Alpha character (defaut: A-Z,a-z) 
+
+        <!--
+        a - Alpha character (defaut: A-Z,a-z)
         9 - Numeric character (0-9)
         * - Alpha numeric character (A-Z,a-z,0-9)
          -->
@@ -46,13 +46,13 @@
           <p-inputMask mask="99.999-999"  [(ngModel)]="pessoa.endereco.cep" name="cep" ngModel #cep="ngModel" required></p-inputMask>
           <app-message [controle]="cep" erro="required" texto="Informe o CEP"></app-message>
         </div>
-  
+
         <div class="ui-g-12 ui-md-6 ui-fluid">
           <label>Cidade</label>
           <input pInputText type="text"  [(ngModel)]="pessoa.endereco.cidade" name="cidade" #cidade="ngModel" required>
           <app-message [controle]="cidade" erro="required" texto="Informe o bairro"></app-message>
         </div>
-  
+
         <div class="ui-g-12 ui-md-6 ui-fluid">
           <label>Estado</label>
           <input pInputText type="text"  [(ngModel)]="pessoa.endereco.estado" name="estado" #estado="ngModel" required>
@@ -66,7 +66,7 @@
                 <button pButton label="Novo" icon="pi pi-plus-circle" type="button"
                   class="ui-button-raised ui-button-secondary" (click)="prepararNovoContato()"></button>
               </div>
-  
+
               <div class="ui-g-12">
                 <p-table [value]="pessoa.contatos" [responsive]="true">
                   <ng-template pTemplate="header">
@@ -77,22 +77,22 @@
                       <th class="col-acoes-header"></th>
                     </tr>
                   </ng-template>
-  
+
                   <ng-template pTemplate="body" let-contato>
                     <tr>
                       <td>{{ contato.nome }}</td>
                       <td>{{ contato.email }}</td>
                       <td>{{ contato.telefone }}</td>
                       <td class="col-acoes">
-                        <button pButton icon="fa-pencil" type="button"
+                        <button pButton icon="pi pi-pencil" type="button"
                           pTooltip="Editar" tooltipPosition="top"></button>
-  
-                        <button pButton icon="fa-trash" type="button"
+
+                        <button pButton icon="pi pi-trash" type="button"
                           pTooltip="Excluir" tooltipPosition="top"></button>
                       </td>
                     </tr>
                   </ng-template>
-  
+
                   <ng-template pTemplate="emptymessage">
                     <tr>
                       <td colspan="4">
@@ -105,18 +105,45 @@
             </div>
           </p-panel>
         </div>
-  
+
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" [disabled]="!formulario.valid"></button>
           <button pButton type="button" label="Nova" class="ui-button-info"  (click)="nova(formulario)"></button>
-  
+
           <a routerLink="/pessoas">Voltar para a pesquisa</a>
-          
+
         </div>
       </div>
-  
-    </form>  
-  </div>
-<p-dialog header="Novo Contato" [(visible)]="exbindoFormularioContato" modal="modal">
 
-</p-dialog>
+    </form>
+  </div>
+  <p-dialog header="Novo Contato" [(visible)]="exibindoFormularioContato" modal="modal" *ngIf="contato">
+    <form #frmContato="ngForm" (ngSubmit)="confirmarContato(frmContato)" autocomplete="off">
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+
+        <input pInputText type="text" name="nome"
+          required [(ngModel)]="contato.nome" #contatoNome="ngModel"/>
+
+        <app-message [controle]="contatoNome" erro="required" texto="Informe o nome"></app-message>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+          <label>E-mail</label>
+
+          <input pInputText type="email" name="email" required email [(ngModel)]="contato.email" #contatoEmail="ngModel"/>
+
+          <app-message [controle]="contatoEmail" erro="required" texto="Informe o email"></app-message>
+          <app-message [controle]="contatoEmail" erro="email" texto="Informe um e-mail válido"></app-message>
+        </div>
+
+        <div class="ui-g-12 ui-fluid">
+            <label>Telefone</label>
+            <p-inputMask name="telefone" [(ngModel)]="contato.telefone" mask="(99) 99999-999?9"></p-inputMask>
+        </div>
+
+        <div class="ui-g-12">
+          <button pButton type="submit" label="Confirmar" [disabled]="frmContato.invalid"></button>
+        </div>
+    </form>
+  </p-dialog>

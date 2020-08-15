@@ -1,10 +1,10 @@
+import { Pessoa, Contato } from './../../core/model';
 import { Component, OnInit } from '@angular/core';
-import { Pessoa } from 'src/app/core/model';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { PessoaService } from '../pessoa.service';
 import { MessageService } from 'primeng/api';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 
@@ -16,12 +16,13 @@ import { Route, ActivatedRoute, Router } from '@angular/router';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
-  exbindoFormularioContato = false;
-  
+  exibindoFormularioContato = false;
+  contato: Contato;
+
   constructor(
-    
+
     private errorHandler: ErrorHandlerService,
-    private pessoaService : PessoaService,    
+    private pessoaService : PessoaService,
     private messageService : MessageService,
     private title : Title,
     private router : Router,
@@ -38,10 +39,21 @@ export class PessoaCadastroComponent implements OnInit {
     }
   }
 
-  
+  //usado para criar um nova instancia de contato ao acrescentar varios contatos ao mesmo tempo e um nao interferir no outro apos o reset do formulario
+  novaInstanciaContato(contato : Contato) : Contato{
+    return new Contato(contato.codigo, contato.nome, contato.email, contato.telefone);
+  }
+
+
+  confirmarContato(frm : NgForm){
+    this.pessoa.contatos.push(this.novaInstanciaContato(this.contato));
+    this.exibindoFormularioContato = false;
+    frm.reset();
+  }
 
   prepararNovoContato() {
-    this.exbindoFormularioContato = true;
+    this.exibindoFormularioContato = true;
+    this.contato = new Contato();
   }
 
   get editando() {
@@ -69,7 +81,7 @@ export class PessoaCadastroComponent implements OnInit {
     this.pessoaService.adicionar(this.pessoa)
       .then(pessoaAdicionada => {
         this.messageService.add({severity:'success', summary:'Inclusão de Pessoa ', detail:"Cadastro de pessoa de código "+ this.pessoa.nome + " foi ADICIONADO com sucesso"});
-        
+
         this.router.navigate(['/pessoas', pessoaAdicionada.codigo]);
       })
       .catch(erro => this.errorHandler.handle(erro));
@@ -81,7 +93,7 @@ export class PessoaCadastroComponent implements OnInit {
         this.pessoa = pessoa;
 
         this.messageService.add({severity:'success', summary:'Alteração de Pessoa ', detail:" "+ this.pessoa.nome + " foi ALTERADO com sucesso"});
-        
+
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
@@ -97,10 +109,10 @@ export class PessoaCadastroComponent implements OnInit {
     this.router.navigate(['/pessoas/nova']);
   }
 
-  
+
   atualizarTituloEdicao(){
     this.title.setTitle('Edicao de Pessoa : ' + this.pessoa.nome);
   }
-  
+
 
 }
