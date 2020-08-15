@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 
@@ -9,7 +9,7 @@ import { CategoriaService } from './../../categorias/categoria.service';
 import { Lancamento } from './../../core/model'
 import { LancamentoService } from '../lancamento.service';
 
-import { MessageService } from 'primeng/api'; 
+import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -77,7 +77,7 @@ export class LancamentoCadastroComponent implements OnInit {
       dateFormat: 'mm/dd/yy',
        weekHeader: 'Wk'
     };
-    
+
     this.ptbr = {
       firstDayOfWeek: 0,
       dayNames: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta--feira", "Sexta--feira", "Sábado"],
@@ -90,8 +90,8 @@ export class LancamentoCadastroComponent implements OnInit {
       clear: 'Limpar',
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Sem'
-    };   
-    
+    };
+
   }
 
   configurarFormulario() {
@@ -119,7 +119,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   validarObrigatoriedade(input: FormControl) {
-   
+
     return (input.value ? null : { obrigatoriedade: true });
   }
 
@@ -127,6 +127,18 @@ export class LancamentoCadastroComponent implements OnInit {
     return (input: FormControl) => {
       return (!input.value || input.value.length >= valor) ? null : { tamanhoMinimo: { tamanho: valor } };
     };
+  }
+
+  antesUploadAnexo(event) {
+    event.xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    this.uploadEmAndamento = true;
+  }
+
+
+
+  get urlUploadAnexo() {
+    return this.lancamentoService.urlUploadAnexo();
   }
 
   get editando() {
@@ -167,8 +179,8 @@ export class LancamentoCadastroComponent implements OnInit {
 
       })
       .catch(erro => this.errorHandler.handle(erro));
-  
-    
+
+
     // if (this.editando) {
     //   this.atualizarLancamento();
     // } else {
@@ -182,14 +194,14 @@ export class LancamentoCadastroComponent implements OnInit {
       .then( lancamento => {
         this.messageService.add({severity:'success', summary:'Atualização de Lançamento ', detail:"Lançamento com descricao :  "+ this.formulario.get('descricao').value + " foi ATUALIZADO com sucesso"});
         //this.toasty.success('Lançamento adicionado com sucesso!');
-        //this.lancamento = lancamento; 
-        this.formulario.patchValue(lancamento);       
+        //this.lancamento = lancamento;
+        this.formulario.patchValue(lancamento);
         this.atualizarTituloEdicao();
-        
+
       })
       .catch(erro => this.errorHandler.handle(erro));
-  
-    
+
+
     // if (this.editando) {
     //   this.atualizarLancamento();
     // } else {
@@ -214,7 +226,7 @@ export class LancamentoCadastroComponent implements OnInit {
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
-  
+
 
   novo() {
     this.formulario.reset();

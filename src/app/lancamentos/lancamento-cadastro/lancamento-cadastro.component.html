@@ -1,8 +1,8 @@
 <div class="container">
-    
+
     <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
-  
-       
+
+
       <div class="ui-g">
         <div class="ui-g-12">
           <h1>{{ editando ? 'Edição de ' : " Novo "}} Lançamento</h1>
@@ -14,8 +14,8 @@
 
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>Data de Vencimento</label>
-          <p-calendar dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false" [locale]="ptbr" formControlName="dataVencimento" name="dataVencimento" ></p-calendar> 
-          <app-message [controle]="formulario.get('dataVencimento')" erro="required" texto="Informe a data de vencimento"></app-message> 
+          <p-calendar dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false" [locale]="ptbr" formControlName="dataVencimento" name="dataVencimento" ></p-calendar>
+          <app-message [controle]="formulario.get('dataVencimento')" erro="required" texto="Informe a data de vencimento"></app-message>
         </div>
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>{{ formulario.get('tipo').value ==='RECEITA' ? 'Data de Recebimento' : 'Data de Pagamento'}}</label>
@@ -25,11 +25,11 @@
         <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Descrição </label>
           <input pInputText type="text" formControlName="descricao" name="descricao">
-  
+
           <!-- Componente Criado para Mensagens de ERRO -->
           <app-message [controle]="formulario.get('descricao')" erro="obrigatoriedade" texto="Informe uma descrição"></app-message>
-          <app-message [controle]="formulario.get('descricao')" erro="tamanhoMinimo" texto=" Mínimo de {{ formulario.get('descricao').errors?.tamanhoMinimo?.tamanho }} caracteres."></app-message> 
-          
+          <app-message [controle]="formulario.get('descricao')" erro="tamanhoMinimo" texto=" Mínimo de {{ formulario.get('descricao').errors?.tamanhoMinimo?.tamanho }} caracteres."></app-message>
+
           <!-- Forma Antiga de fazer validação de Mensagens de ERRO sem Componentes-->
           <!--
           <div *ngIf="descricao.hasError('required') && descricao.dirty" class="ui-messages ui-messages-error">
@@ -40,38 +40,45 @@
           </div>
          -->
         </div>
-      
+
         <div class="ui-g-12 ui-md-3 ui-fluid" >
-          <label>Valor</label>          
+          <label>Valor</label>
           <input pInputText type="text" placeholder="0,00" currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }" formControlName="valor" name="valor">
         </div>
-       
+
         <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="categoria">
           <label>Categoria</label>
           <p-dropdown name="categoria" [options]="categorias"
             placeholder="Selecione"
             formControlName="codigo"></p-dropdown>
         </div>
-  
+
         <div class="ui-g-12 ui-md-6 ui-fluid" formGroupName="pessoa">
           <label>Pessoa</label>
           <p-dropdown name="pessoa" [options]="pessoas" placeholder="Selecione"
            [filter]="true"
             formControlName="codigo"></p-dropdown>
         </div>
-  
+
         <div class="ui-g-12 ui-fluid">
           <label>Observação</label>
           <textarea pInputTextarea rows="3" name="observacao"
             formControlName="observacao"></textarea>
         </div>
-        
+
+        <div class="ui-g-6 ui-g-offset-6 ui-md-2 ui-md-offset-10 ui-fluid">
+          <p-fileUpload name="anexo" mode="basic" auto="true" maxFileSize="100000000"
+            chooseLabel="Anexar" accept="image/*,application/*"
+            [url]="urlUploadAnexo"
+            (onBeforeUpload)="antesUploadAnexo($event)" ></p-fileUpload>
+        </div>
+
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" style="margin-right: 8px" [disabled]="formulario.invalid"></button>
           <button pButton type="button" label="Novo" class="ui-button-secondary" style="margin-right: 8px" (click)="novo()"></button>
           <a routerLink="/lancamentos">Voltar para a pesquisa</a>
         </div>
       </div>
-  
+
     </form>
   </div>

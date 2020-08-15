@@ -20,6 +20,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputMaskModule} from 'primeng/inputmask';
 import {ToastModule} from 'primeng/toast';
+import { FileUploadModule} from 'primeng/fileupload'
 
 
 //Currency Mask
@@ -34,15 +35,15 @@ import { RouterModule } from '@angular/router';
     LancamentosPesquisaComponent
 
    // LancamentoCadastroComponentOrientadoATemplate
-    
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
 
-    SharedModule,    
-    ButtonModule,    
+    SharedModule,
+    ButtonModule,
     InputTextModule,
     TableModule,
     TooltipModule,
@@ -52,10 +53,11 @@ import { RouterModule } from '@angular/router';
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-    
+    FileUploadModule,
+
     CurrencyMaskModule,
     ToastModule,
-    
+
     LancamentosRoutingModule
   ],
   exports : [ ]
