@@ -20,7 +20,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputMaskModule} from 'primeng/inputmask';
 import {ToastModule} from 'primeng/toast';
-import { FileUploadModule} from 'primeng/fileupload'
+import { FileUploadModule} from 'primeng/fileupload';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 //Currency Mask
@@ -54,6 +55,7 @@ import { RouterModule } from '@angular/router';
     DropdownModule,
     InputMaskModule,
     FileUploadModule,
+    ProgressSpinnerModule,
 
     CurrencyMaskModule,
     ToastModule,

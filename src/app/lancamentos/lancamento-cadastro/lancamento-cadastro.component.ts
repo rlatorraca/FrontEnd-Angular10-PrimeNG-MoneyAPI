@@ -112,8 +112,8 @@ export class LancamentoCadastroComponent implements OnInit {
         nome: []
       }),
       observacao: [],
-      //anexo: [],
-      //urlAnexo: []
+      anexo: [],
+      urlAnexo: []
     });
     console.log (this.formulario);
   }
@@ -129,12 +129,44 @@ export class LancamentoCadastroComponent implements OnInit {
     };
   }
 
+  aoTerminarUploadAnexo(event) {
+    const anexo = event.originalEvent.body; // pega a respostado envio do Anexo para a AWS
+
+    this.formulario.patchValue({
+      anexo: anexo.nome,
+      urlAnexo: anexo.url
+    });
+
+    this.uploadEmAndamento = false;
+  }
+
+  erroUpload(event) {
+    this.messageService.add({severity:'error', summary:'Envio do Anexo ', detail:"Erro ao enviar anexo!"});
+    this.uploadEmAndamento = false;
+  }
+
+  removerAnexo() {
+    this.formulario.patchValue({
+      anexo: null,
+      urlAnexo: null
+    });
+  }
+
+  get nomeAnexo() {
+    const nome = this.formulario.get('anexo').value;
+
+    if (nome) {
+      return nome.substring(nome.indexOf('_') + 1, nome.length);
+    }
+
+    return '';
+  }
+
   antesUploadAnexo(event) {
-    event.xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    //event.xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
     this.uploadEmAndamento = true;
   }
-
 
 
   get urlUploadAnexo() {
