@@ -16,7 +16,9 @@ import { Route, ActivatedRoute, Router } from '@angular/router';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
-
+  estados : any[];
+  cidades: any[];
+  estadoSelecionado: number;
 
   constructor(
 
@@ -33,12 +35,26 @@ export class PessoaCadastroComponent implements OnInit {
 
     this.title.setTitle('Nova pessoa');
 
+    this.carregarEstados();
+
     if (codigoPessoa) {
       this.carregarPessoa(codigoPessoa);
     }
   }
 
+  carregarEstados() {
+    this.pessoaService.listarEstados().then(lista => {
+      this.estados = lista.map(uf => ({ label: uf.nome, value: uf.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
 
+  carregarCidades() {
+    this.pessoaService.pesquisarCidades(this.estadoSelecionado).then(lista => {
+      this.cidades = lista.map(c => ({ label: c.nome, value: c.codigo }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
 
 
   get editando() {
@@ -49,6 +65,14 @@ export class PessoaCadastroComponent implements OnInit {
     this.pessoaService.buscarPorCodigo(codigo)
       .then(pessoa => {
         this.pessoa = pessoa;
+
+        this.estadoSelecionado = (this.pessoa.endereco.cidade) ?
+                this.pessoa.endereco.cidade.estado.codigo : null;
+
+        if (this.estadoSelecionado) {
+          this.carregarCidades();
+        }
+
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));

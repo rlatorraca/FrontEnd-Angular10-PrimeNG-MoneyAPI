@@ -1,24 +1,24 @@
 <div class="container">
-  
+
     <div class="ui-g">
       <form autocomplete="off" (ngSubmit)="pesquisar()">
 
         <div class="ui-g-12">
           <h1>Pessoas</h1>
         </div>
-      
+
         <div class="ui-g-12 ui-fluid">
           <label>Nome</label>
           <input type="text" pInputText [(ngModel)]="filtro.nome" name="nome"/>
         </div>
-      
+
         <div class="ui-g-12">
-          <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>      
+          <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>
         </div>
-      </form>  
+      </form>
     </div>
-  
-    <div class="ui-g">    
+
+    <div class="ui-g">
       <div class="ui-g-12">
         <p-table [value]="pessoas"  [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabelaPessoas>
           <ng-template pTemplate="header">
@@ -26,38 +26,38 @@
                   <th>Nome</th>
                   <th>Cidade</th>
                   <th>Estado</th>
-                  <th>Status</th>                  
+                  <th>Status</th>
                   <th class="col-valor-header"></th>
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-person>
               <tr>
                   <td>{{person.nome}}</td>
-                  <td>{{person.endereco.cidade}}</td>
-                  <td class="col-data-content">{{person.endereco.estado}}</td>                 
+                  <td class="col-data-content">{{person.endereco.cidade?.nome}}</td>
+                  <td class="col-data-content">{{person.endereco.cidade?.estado.nome}}</td>
                   <td class="col-data-content">
-                        <a href="javascript:;"  class="badge badge-pill" [ngClass]="person.ativo ? 'badge-success' : 'badge-danger'" [ngStyle]="{ color: person.ativo ? 'green' : 'red'}"  
+                        <a href="javascript:;"  class="badge badge-pill" [ngClass]="person.ativo ? 'badge-success' : 'badge-danger'" [ngStyle]="{ color: person.ativo ? 'green' : 'red'}"
                         [pTooltip]="person.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="alternarStatus(person)" >
                             {{person.ativo ? "Ativo" : "Inativo"}}
                         </a>
                   </td>
-      
-                  <!--<td class="col-valor-content" [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor}}</td>-->            
-                  <td class="col-acoes"> 
-                    <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', person.codigo]" ></a> 
-                    <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(person)"></button> 
+
+                  <!--<td class="col-valor-content" [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor}}</td>-->
+                  <td class="col-acoes">
+                    <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', person.codigo]" ></a>
+                    <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(person)"></button>
                   </td>
               </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
             Nenhum lançamento encontrado
         </ng-template>
-      </p-table>  
+      </p-table>
       </div>
-     
+
       <div class="ui-g-12">
         <a pButton label="Novo Pessoa" routerLink="/pessoas/nova"></a>
       </div>
     </div>
-  
+
 </div>

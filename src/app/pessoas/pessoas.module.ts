@@ -1,3 +1,4 @@
+import { DropdownModule } from 'primeng/dropdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -39,17 +40,18 @@ import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa
     InputTextModule,
     TableModule,
     TooltipModule,
-    InputTextareaModule,    
-    TabViewModule,    
+    InputTextareaModule,
+    TabViewModule,
     InputMaskModule,
     PanelModule,
     DialogModule,
+    DropdownModule,
 
     RouterModule,
 
     PessoasRoutingModule
 
-    
+
   ],
   exports : [ ]
 })
