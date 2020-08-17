@@ -14,6 +14,11 @@ a:hover, a:focus {
     text-decoration: underline;
 }
 
+a.ui-button:hover {
+    background-color: #005b9f;
+    color: white!important;
+}
+
 label{
     font-weight: bold;
     font-size: larger;
@@ -49,8 +54,12 @@ label{
     text-align: center;
 }
 
+/* .col-acoes .ui-button{
+   margin: 0 5px;
+} */
+
 .col-acoes > a {
-    margin: 0 5px;
+    margin: 0 3px;
 }
 
 button.ui-button {    
@@ -61,3 +70,18 @@ button.ui-button {
     margin : 0;
     margin-top: 5px;
 }
+
+.spaced-label {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.cadastro-acoes .ui-button {
+    margin-right: 5px;
+  }
+  
+  .relatorio-filtro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

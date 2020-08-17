@@ -64,9 +64,9 @@
           <label>Observação</label>
           <textarea pInputTextarea rows="3" [(ngModel)]="lancamento.observacao" name="observacao"></textarea>
         </div>
-        <div class="ui-g-12">
-          <button pButton type="submit" label="Salvar" style="margin-right: 8px" [disabled]="!formulario.valid"></button>
-          <button pButton type="button" label="Novo" class="ui-button-secondary" style="margin-right: 8px" (click)="novo(formulario)"></button>
+        <div class="ui-g-12 cadastro-acoes">
+          <button pButton type="submit" label="Salvar"  [disabled]="!formulario.valid"></button>
+          <button pButton type="button" label="Novo" class="ui-button-secondary"  (click)="novo(formulario)"></button>
           <a routerLink="/lancamentos">Voltar para a pesquisa</a>
         </div>
       </div>

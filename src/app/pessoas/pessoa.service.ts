@@ -144,5 +144,5 @@ export class PessoaService {
     return this.http.get(this.cidadesURL, { params })
         .toPromise()
         .then(response => response as Cidade[]);
-  }
+   }
 }
